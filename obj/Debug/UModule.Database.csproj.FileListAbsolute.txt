@@ -1,0 +1,12 @@
+C:\porject\freelance\CRM-main\UModule.Database\obj\Debug\UModule.Database.csproj.AssemblyReference.cache
+C:\porject\freelance\CRM-main\UModule.Database\obj\Debug\UModule.Database.csproj.CoreCompileInputs.cache
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\UModule.Database.dll.config
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\UModule.Database.dll
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\UModule.Database.pdb
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\EntityFramework.dll
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\EntityFramework.xml
+C:\porject\freelance\CRM-main\UModule.Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\porject\freelance\CRM-main\UModule.Database\obj\Debug\UModule..6398D5A5.Up2Date
+C:\porject\freelance\CRM-main\UModule.Database\obj\Debug\UModule.Database.dll
+C:\porject\freelance\CRM-main\UModule.Database\obj\Debug\UModule.Database.pdb

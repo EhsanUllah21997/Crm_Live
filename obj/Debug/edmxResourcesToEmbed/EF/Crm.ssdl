@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crm_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ApprovalWorkflow">
+    <Key>
+      <PropertyRef Name="ApprovalID" />
+    </Key>
+    <Property Name="ApprovalID" Type="int" Nullable="false" />
+    <Property Name="EstimateID" Type="int" />
+    <Property Name="ApproverID" Type="int" />
+    <Property Name="ApprovalStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="ApprovalDateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ParentCategoryID" Type="int" />
+  </EntityType>
+  <EntityType Name="ClientPortal">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" />
+    <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="CustomField1" Type="nvarchar" MaxLength="255" />
+    <Property Name="CustomField2" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Contacts">
+    <Key>
+      <PropertyRef Name="ContactID" />
+    </Key>
+    <Property Name="ContactID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="ContactName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Position" Type="nvarchar" MaxLength="100" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CrmUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoleId" Type="int" />
+  </EntityType>
+  <EntityType Name="Estimate">
+    <Key>
+      <PropertyRef Name="EstimateID" />
+    </Key>
+    <Property Name="EstimateID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="EstimateDate" Type="date" />
+    <Property Name="ValidUntilDate" Type="date" />
+  </EntityType>
+  <EntityType Name="EstimateLineItem">
+    <Key>
+      <PropertyRef Name="LineItemID" />
+    </Key>
+    <Property Name="LineItemID" Type="int" Nullable="false" />
+    <Property Name="EstimateID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Homeowner">
+    <Key>
+      <PropertyRef Name="HomeownerID" />
+    </Key>
+    <Property Name="HomeownerID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="HomeownerName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ContactDetails" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="InteractionLog">
+    <Key>
+      <PropertyRef Name="InteractionID" />
+    </Key>
+    <Property Name="InteractionID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="ContactID" Type="int" />
+    <Property Name="InteractionDateTime" Type="datetime" />
+    <Property Name="InteractionType" Type="nvarchar" MaxLength="100" />
+    <Property Name="InteractionDetails" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="InvoiceDate" Type="date" />
+    <Property Name="DueDate" Type="date" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="InvoiceLineItem">
+    <Key>
+      <PropertyRef Name="LineItemID" />
+    </Key>
+    <Property Name="LineItemID" Type="int" Nullable="false" />
+    <Property Name="InvoiceID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="PaymentTransaction">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="InvoiceID" Type="int" />
+    <Property Name="TransactionDate" Type="datetime" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PaymentMethod" Type="nvarchar" MaxLength="100" />
+    <Property Name="TransactionStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CategoryID" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="StockQuantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="Budget" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Property">
+    <Key>
+      <PropertyRef Name="PropertyID" />
+    </Key>
+    <Property Name="PropertyID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" />
+    <Property Name="PropertyName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Location" Type="nvarchar" MaxLength="255" />
+    <Property Name="ImageURL" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="PropertyAmenities">
+    <Key>
+      <PropertyRef Name="AmenityID" />
+    </Key>
+    <Property Name="AmenityID" Type="int" Nullable="false" />
+    <Property Name="PropertyID" Type="int" />
+    <Property Name="AmenityName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Specifications" Type="nvarchar(max)" />
+    <Property Name="WarrantyInformation" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="TaskID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="TaskName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="AssignedTo" Type="int" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="DueDate" Type="date" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__ApprovalW__Appro__5AEE82B9">
+    <End Role="Contacts" Type="Self.Contacts" Multiplicity="0..1" />
+    <End Role="ApprovalWorkflow" Type="Self.ApprovalWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contacts">
+        <PropertyRef Name="ContactID" />
+      </Principal>
+      <Dependent Role="ApprovalWorkflow">
+        <PropertyRef Name="ApproverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ApprovalW__Estim__5BE2A6F2">
+    <End Role="Estimate" Type="Self.Estimate" Multiplicity="0..1" />
+    <End Role="ApprovalWorkflow" Type="Self.ApprovalWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estimate">
+        <PropertyRef Name="EstimateID" />
+      </Principal>
+      <Dependent Role="ApprovalWorkflow">
+        <PropertyRef Name="EstimateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClientPor__Clien__5CD6CB2B">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="ClientPortal" Type="Self.ClientPortal" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="ClientPortal">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contacts__Client__5DCAEF64">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Contacts">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Estimate__Client__5FB337D6">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="Estimate" Type="Self.Estimate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Estimate">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EstimateL__Estim__60A75C0F">
+    <End Role="Estimate" Type="Self.Estimate" Multiplicity="0..1" />
+    <End Role="EstimateLineItem" Type="Self.EstimateLineItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estimate">
+        <PropertyRef Name="EstimateID" />
+      </Principal>
+      <Dependent Role="EstimateLineItem">
+        <PropertyRef Name="EstimateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EstimateL__Produ__619B8048">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="EstimateLineItem" Type="Self.EstimateLineItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="EstimateLineItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Homeowner__Clien__628FA481">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="Homeowner" Type="Self.Homeowner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Homeowner">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Interacti__Clien__6383C8BA">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="InteractionLog" Type="Self.InteractionLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="InteractionLog">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Interacti__Conta__6477ECF3">
+    <End Role="Contacts" Type="Self.Contacts" Multiplicity="0..1" />
+    <End Role="InteractionLog" Type="Self.InteractionLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contacts">
+        <PropertyRef Name="ContactID" />
+      </Principal>
+      <Dependent Role="InteractionLog">
+        <PropertyRef Name="ContactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__ClientI__656C112C">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoiceLi__Invoi__66603565">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+    <End Role="InvoiceLineItem" Type="Self.InvoiceLineItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="InvoiceLineItem">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoiceLi__Produ__6754599E">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="InvoiceLineItem" Type="Self.InvoiceLineItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="InvoiceLineItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PaymentTr__Invoi__68487DD7">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+    <End Role="PaymentTransaction" Type="Self.PaymentTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="PaymentTransaction">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Catego__693CA210">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Property__Client__6A30C649">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="Property" Type="Self.Property" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Property">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PropertyA__Prope__6B24EA82">
+    <End Role="Property" Type="Self.Property" Multiplicity="0..1" />
+    <End Role="PropertyAmenities" Type="Self.PropertyAmenities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="PropertyID" />
+      </Principal>
+      <Dependent Role="PropertyAmenities">
+        <PropertyRef Name="PropertyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Task__AssignedTo__6C190EBB">
+    <End Role="Contacts" Type="Self.Contacts" Multiplicity="0..1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contacts">
+        <PropertyRef Name="ContactID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="AssignedTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Task__ProjectID__6D0D32F4">
+    <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleId">
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
+    <End Role="CrmUser" Type="Self.CrmUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CrmUser">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="crm_dbModelStoreContainer">
+    <EntitySet Name="ApprovalWorkflow" EntityType="Self.ApprovalWorkflow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClientPortal" EntityType="Self.ClientPortal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CrmUser" EntityType="Self.CrmUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estimate" EntityType="Self.Estimate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstimateLineItem" EntityType="Self.EstimateLineItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Homeowner" EntityType="Self.Homeowner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InteractionLog" EntityType="Self.InteractionLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InvoiceLineItem" EntityType="Self.InvoiceLineItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentTransaction" EntityType="Self.PaymentTransaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PropertyAmenities" EntityType="Self.PropertyAmenities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ApprovalW__Appro__5AEE82B9" Association="Self.FK__ApprovalW__Appro__5AEE82B9">
+      <End Role="Contacts" EntitySet="Contacts" />
+      <End Role="ApprovalWorkflow" EntitySet="ApprovalWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ApprovalW__Estim__5BE2A6F2" Association="Self.FK__ApprovalW__Estim__5BE2A6F2">
+      <End Role="Estimate" EntitySet="Estimate" />
+      <End Role="ApprovalWorkflow" EntitySet="ApprovalWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClientPor__Clien__5CD6CB2B" Association="Self.FK__ClientPor__Clien__5CD6CB2B">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="ClientPortal" EntitySet="ClientPortal" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contacts__Client__5DCAEF64" Association="Self.FK__Contacts__Client__5DCAEF64">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Contacts" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Estimate__Client__5FB337D6" Association="Self.FK__Estimate__Client__5FB337D6">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Estimate" EntitySet="Estimate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EstimateL__Estim__60A75C0F" Association="Self.FK__EstimateL__Estim__60A75C0F">
+      <End Role="Estimate" EntitySet="Estimate" />
+      <End Role="EstimateLineItem" EntitySet="EstimateLineItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EstimateL__Produ__619B8048" Association="Self.FK__EstimateL__Produ__619B8048">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="EstimateLineItem" EntitySet="EstimateLineItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Homeowner__Clien__628FA481" Association="Self.FK__Homeowner__Clien__628FA481">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Homeowner" EntitySet="Homeowner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Interacti__Clien__6383C8BA" Association="Self.FK__Interacti__Clien__6383C8BA">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="InteractionLog" EntitySet="InteractionLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Interacti__Conta__6477ECF3" Association="Self.FK__Interacti__Conta__6477ECF3">
+      <End Role="Contacts" EntitySet="Contacts" />
+      <End Role="InteractionLog" EntitySet="InteractionLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__ClientI__656C112C" Association="Self.FK__Invoice__ClientI__656C112C">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoiceLi__Invoi__66603565" Association="Self.FK__InvoiceLi__Invoi__66603565">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceLineItem" EntitySet="InvoiceLineItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoiceLi__Produ__6754599E" Association="Self.FK__InvoiceLi__Produ__6754599E">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="InvoiceLineItem" EntitySet="InvoiceLineItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PaymentTr__Invoi__68487DD7" Association="Self.FK__PaymentTr__Invoi__68487DD7">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="PaymentTransaction" EntitySet="PaymentTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Catego__693CA210" Association="Self.FK__Products__Catego__693CA210">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Property__Client__6A30C649" Association="Self.FK__Property__Client__6A30C649">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Property" EntitySet="Property" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PropertyA__Prope__6B24EA82" Association="Self.FK__PropertyA__Prope__6B24EA82">
+      <End Role="Property" EntitySet="Property" />
+      <End Role="PropertyAmenities" EntitySet="PropertyAmenities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Task__AssignedTo__6C190EBB" Association="Self.FK__Task__AssignedTo__6C190EBB">
+      <End Role="Contacts" EntitySet="Contacts" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Task__ProjectID__6D0D32F4" Association="Self.FK__Task__ProjectID__6D0D32F4">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleId" Association="Self.FK_RoleId">
+      <End Role="UserRole" EntitySet="UserRole" />
+      <End Role="CrmUser" EntitySet="CrmUser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
